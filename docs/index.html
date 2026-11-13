@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Post-Quantum Peer-Overlay Transport Security Assessment</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:900px;margin:2em auto;
+padding:0 1em;line-height:1.55;color:#1a1a1a}
+h1{font-size:1.5em}h2{font-size:1.2em;margin-top:1.6em}
+table{border-collapse:collapse;width:100%;font-size:.92em}
+th,td{border:1px solid #bbb;padding:.35em .5em;text-align:left;
+vertical-align:top}
+th{background:#eee}code{background:#f2f2f2;padding:0 .2em}
+.warn{background:#fff4d6;border-left:4px solid #c90;padding:.6em 1em}
+.lim{background:#f2f2f2;border-left:4px solid #888;padding:.6em 1em}
+</style>
+</head>
+<body>
+<h1>Post-Quantum Peer-Overlay Transport Security Assessment</h1>
+<p>Transport-security assessment of the postfiatd peer overlay under a
+post-quantum threat model. Pinned tree: postfiatd main commit
+<code>0085a1ff885d6a446369cf73a4430f75af22be55</code>. Harness <code>harness.py</code> version
+<code>1.0.0</code>, seed <code>20261113</code>.</p>
+
+<h2>Headline findings</h2>
+<ul>
+<li><b>Peer TLS is TLS 1.2 / 1.3 with a 2048-bit RSA self-signed
+certificate, and no certificate verification.</b> The overlay context
+is built by <code>make_SSLContext("")</code>; verification is
+<code>verify_none</code> on both ends of a peer connection. Peer
+authentication does not come from TLS at all: it comes from the
+overlay handshake above TLS, where each peer signs a value derived
+from the TLS Finished messages with its long-term secp256k1 node key.</li>
+<li><b>The cipher list as written is
+<code>TLSv1.2:!CBC:!DSS:!PSK:!eNULL:!aNULL</code>.</b> Under the local OpenSSL it expands to
+31 TLS 1.2 suites. It excludes every CBC suite, but it
+<b>still permits RSA key transport</b>: 8 RSA suites remain
+(`AES256-GCM-SHA384`, `AES256-CCM8`, `AES256-CCM`, `ARIA256-GCM-SHA384`, `AES128-GCM-SHA256`, `AES128-CCM8`, `AES128-CCM`, `ARIA128-GCM-SHA256`), and harness variant V5 negotiates
+<code>TLS_RSA_WITH_AES_256_GCM_SHA384</code> against the overlay
+configuration. RSA key transport has no forward secrecy.</li>
+<li><b>TLS 1.3 is allowed and is what negotiates by default.</b>
+Variant V1 (overlay configuration as written) negotiates TLS 1.3 with
+<code>TLS_AES_256_GCM_SHA384</code>. The cipher list does not touch
+TLS 1.3 suites at all: the code never calls
+<code>SSL_CTX_set_ciphersuites</code>, so all default TLS 1.3 suites
+are available (`TLS_AES_256_GCM_SHA384`, `TLS_CHACHA20_POLY1305_SHA256`, `TLS_AES_128_GCM_SHA256`).</li>
+<li><b>Harvest-now-decrypt-later exposure is concentrated in TLS 1.2
+sessions.</b> TLS 1.3 sessions use ephemeral (EC)DHE only and are
+forward-secret against a later quantum adversary. TLS 1.2 sessions
+negotiated with an RSA key-transport suite are decryptable by anyone
+who later obtains the (ephemeral, per-process-start) RSA private key
+together with the recorded session. Ledger data itself is public;
+session keys and the peer handshake are what a recorded session
+protects.</li>
+<li><b>Hybrid ML-KEM migration is blocked on the pinned OpenSSL,
+not on the protocol.</b> OpenSSL 1.1.1w has no ML-KEM support; native
+ML-KEM arrived in OpenSSL 3.5 (8 April 2025). The first migration step
+is therefore the OpenSSL upgrade, then enabling the
+<code>X25519MLKEM768</code> hybrid group (RFC 10024). The overlay's
+above-TLS peer authentication (secp256k1 node keys) is a separate,
+harder migration and is out of scope for the transport change.</li>
+</ul>
+
+<h2>Handshake results (loopback rig, local OpenSSL OpenSSL 3.0.13 30 Jan 2024)</h2>
+<table>
+<tr><th>ID</th><th>Variant</th><th>Outcome</th><th>Version</th>
+<th>Cipher</th><th>What it tests</th></tr>
+<tr><td>V1</td><td>overlay-as-written</td><td>succeeded 3/3</td><td>TLSv1.3</td><td>TLS_AES_256_GCM_SHA384</td><td>Server and client configured exactly as the code writes them: TLS minimum 1.2, no maximum (TLS 1.3 allowed), cipher list &#x27;TLSv1.2:!CBC:!DSS:!PSK:!eNULL:!aNULL&#x27;, RSA-2048 self-signed certificate, no certificate verification.</td></tr>
+<tr><td>V2</td><td>tls13-only</td><td>succeeded 3/3</td><td>TLSv1.3</td><td>TLS_AES_256_GCM_SHA384</td><td>Both ends restricted to TLS 1.3 with the default TLS 1.3 ciphersuites (the code never configures TLS 1.3 ciphersuites, so this is the default set).</td></tr>
+<tr><td>V3</td><td>relaxed-tls12</td><td>succeeded 3/3</td><td>TLSv1.2</td><td>ECDHE-RSA-AES256-GCM-SHA384</td><td>TLS 1.2 only, cipher list relaxed to &#x27;ALL&#x27; on both ends: shows what the overlay restriction actually excludes, by contrast with V4.</td></tr>
+<tr><td>V4</td><td>overlay-tls12-only</td><td>succeeded 3/3</td><td>TLSv1.2</td><td>ECDHE-RSA-AES256-GCM-SHA384</td><td>Overlay cipher list with TLS 1.2 forced on both ends: shows which TLS 1.2 suite the overlay configuration negotiates when TLS 1.3 is out of the picture.</td></tr>
+<tr><td>V5</td><td>rsa-key-transport-tls12</td><td>succeeded 3/3</td><td>TLSv1.2</td><td>AES256-GCM-SHA384</td><td>Overlay server (TLS 1.2, overlay cipher list); client offers ONLY the RSA key-transport suite AES256-GCM-SHA384 (TLS_RSA_WITH_AES_256_GCM_SHA384). Tests whether the overlay cipher list permits non-forward-secret RSA key transport.</td></tr>
+<tr><td>V6</td><td>cbc-blocked-by-overlay</td><td>failed 3/3</td><td>None</td><td>None</td><td>Overlay server (TLS 1.2, overlay cipher list); client offers ONLY the CBC suite ECDHE-RSA-AES256-SHA384. Expected failure: the !CBC exclusion leaves no shared cipher.</td></tr>
+<tr><td>V7</td><td>cbc-allowed-when-relaxed</td><td>succeeded 3/3</td><td>TLSv1.2</td><td>ECDHE-RSA-AES256-SHA384</td><td>Control for V6: same CBC-only client against a server with the cipher list relaxed to &#x27;ALL&#x27;. Expected success with the CBC suite.</td></tr>
+<tr><td>V8</td><td>tls11-rejected</td><td>failed 3/3</td><td>None</td><td>None</td><td>Overlay server; client restricted to TLS 1.1 (security level lowered on the client only, so the client can even offer it). Expected failure: the server disables TLS 1.0/1.1.</td></tr>
+<tr><td>V9</td><td>tls12-dhe-embedded-params</td><td>succeeded 1/1</td><td>TLSv1.2</td><td>DHE-RSA-AES256-GCM-SHA384</td><td>TLS 1.2, overlay cipher list, client offers ONLY DHE-RSA-AES256-GCM-SHA384; server is openssl s_server loaded with the embedded 2048-bit DH parameters extracted from make_SSLContext.cpp. Tests the code&#x27;s DHE path end to end.</td></tr>
+<tr><td>V10</td><td>tls13-ciphersuites-unrestricted</td><td>succeeded 3/3</td><td>TLSv1.3</td><td>TLS_AES_256_GCM_SHA384</td><td>TLS 1.3 only, server cipher list set to the overlay string (which per OpenSSL documentation does not affect TLS 1.3 ciphersuites): shows TLS 1.3 still negotiates its default suites, including ChaCha20-Poly1305, which the &#x27;!CBC&#x27; wording never touches.</td></tr>
+</table>
+<p>Variant details, per-attempt client/server records and the full
+cipher matrix are in <code>results/handshake_results.json</code>,
+<code>results/cipher_matrix.csv</code> and
+<code>results/cipher_matrix.md</code>.</p>
+
+<h2>Test certificate (as generated by the harness)</h2>
+<ul>
+<li>Key: RSA 2048-bit, exponent 65537 (seeded, deterministic)</li>
+<li>Signature algorithm: sha256WithRSAEncryption</li>
+<li>Serial: <code>20:26:11:13:00:00:00:00:00:00:00:00:00:00:00:42</code></li>
+<li>Validity: Nov 12 00:00:00 2026 GMT to Nov 12 00:00:00 2028 GMT</li>
+<li>Subject / Issuer: empty (the code sets no name)</li>
+<li>SHA-256 fingerprint:
+<code>2f6c197f20e2d048df32d0d7c4862ff42f741ad9726921ac24701c8f2fa89389</code></li>
+<li>Embedded DH parameters: 2048-bit, check passed: True</li>
+</ul>
+
+<h2>Exposure summary (per traffic class)</h2>
+<table>
+<tr><th>Traffic class</th><th>What a passive recorder gets</th>
+<th>Decryptable later by a quantum adversary?</th><th>Severity</th></tr>
+<tr><td>Peer-overlay validation traffic</td>
+<td>Encrypted TLS records; validation messages and ledger data
+inside</td><td>Only for TLS 1.2 sessions negotiated with an RSA
+key-transport suite, and only if the ephemeral RSA private key is
+also obtained while the process runs. TLS 1.3 and (EC)DHE TLS 1.2
+sessions stay safe.</td><td>Medium</td></tr>
+<tr><td>RPC traffic (secure ports)</td>
+<td>Encrypted TLS records; RPC requests/responses inside</td>
+<td>Same TLS 1.2 RSA key-transport condition as the overlay; RPC
+ports share the same context builder and cipher list, and accept
+operator-supplied certificates. Secrets sent over RPC (seeds, keys)
+are the highest-value plaintext at risk.</td><td>Medium</td></tr>
+<tr><td>Outbound work traffic (WorkSSL)</td>
+<td>Encrypted TLS 1.2 records to external hosts</td>
+<td>TLS 1.2 client pinned to <code>tlsv12_client</code>; no TLS 1.3,
+so no mandatory forward secrecy. RSA key-transport suites are
+possible if the remote server selects them; certificate verification
+depends on the operator's SSL_VERIFY configuration.</td>
+<td>Medium</td></tr>
+</table>
+<p>Full rationale, per class, is in
+<code>exposure_analysis.md</code>.</p>
+
+<div class="warn"><b>What the cipher list does not fix.</b> The
+overlay's forward secrecy depends on which TLS version and suite the
+two peers actually negotiate, not on the cipher string alone. Under
+TLS 1.2 the string still admits RSA key transport; under TLS 1.3 the
+string is inert. The honest statement is: forward secrecy is
+guaranteed only for TLS 1.3 sessions and for TLS 1.2 sessions that
+happen to negotiate (EC)DHE.</div>
+
+<div class="lim"><b>Limits — read before citing.</b> The harness
+measures a local TLS rig configured like the overlay; it is not a
+measurement of live peer connections — no live peer, validator or
+network endpoint was contacted. The ledger was not compiled or run.
+Results depend on the local OpenSSL (library OpenSSL 3.0.13 30 Jan 2024); the pinned
+library is 1.1.1w. Negotiated cipher suites at runtime depend on the
+peer's offered list, which is not observable statically. See
+<code>assumptions.md</code> and <code>claim_evidence_index.md</code>
+for the full list.</div>
+
+<h2>Reproduce</h2>
+<pre>bash run_all.sh   # re-runs the harness, rebuilds this page, verifies digests
+bash verify_digests.sh --check</pre>
+<p>See <code>README.md</code> and <code>REPRODUCTION.md</code>.</p>
+</body>
+</html>
