@@ -1,0 +1,556 @@
+{
+  "harness": "harness.py",
+  "harness_version": "1.0.0",
+  "seed": 20261113,
+  "pinned_commit": "0085a1ff885d6a446369cf73a4430f75af22be55",
+  "pinned_tree_file": "src/libxrpl/basics/make_SSLContext.cpp",
+  "overlay_cipher_list_as_written": "TLSv1.2:!CBC:!DSS:!PSK:!eNULL:!aNULL",
+  "environment": {
+    "python": "3.12.3",
+    "python_ssl_openssl_version": "OpenSSL 3.0.13 30 Jan 2024",
+    "openssl_cli_version": "OpenSSL 3.0.13 30 Jan 2024 (Library: OpenSSL 3.0.13 30 Jan 2024)",
+    "platform": "Linux-7.0.0-44-generic-x86_64-with-glibc2.39"
+  },
+  "certificate": {
+    "key_type": "RSA",
+    "key_bits": 2048,
+    "signature_algorithm": "sha256WithRSAEncryption",
+    "serial": "20:26:11:13:00:00:00:00:00:00:00:00:00:00:00:42",
+    "not_before": "Nov 12 00:00:00 2026 GMT",
+    "not_after": "Nov 12 00:00:00 2028 GMT",
+    "sha256_fingerprint": "2f6c197f20e2d048df32d0d7c4862ff42f741ad9726921ac24701c8f2fa89389",
+    "subject": "",
+    "issuer": ""
+  },
+  "dh_parameters": {
+    "bits": 2048,
+    "check_ok": true,
+    "source": "embedded defaultDH in make_SSLContext.cpp"
+  },
+  "cipher_matrix": {
+    "overlay_tls12_suite_count": 31,
+    "default_tls12_suite_count": 27,
+    "all_tls12_suite_count": 71,
+    "tls13_suite_count": 3,
+    "tls13_suites": [
+      "TLS_AES_256_GCM_SHA384",
+      "TLS_CHACHA20_POLY1305_SHA256",
+      "TLS_AES_128_GCM_SHA256"
+    ],
+    "overlay_excludes_vs_all": [
+      "AES128-SHA",
+      "AES128-SHA256",
+      "AES256-SHA",
+      "AES256-SHA256",
+      "CAMELLIA128-SHA",
+      "CAMELLIA128-SHA256",
+      "CAMELLIA256-SHA",
+      "CAMELLIA256-SHA256",
+      "DHE-DSS-AES128-GCM-SHA256",
+      "DHE-DSS-AES128-SHA",
+      "DHE-DSS-AES128-SHA256",
+      "DHE-DSS-AES256-GCM-SHA384",
+      "DHE-DSS-AES256-SHA",
+      "DHE-DSS-AES256-SHA256",
+      "DHE-DSS-ARIA128-GCM-SHA256",
+      "DHE-DSS-ARIA256-GCM-SHA384",
+      "DHE-DSS-CAMELLIA128-SHA",
+      "DHE-DSS-CAMELLIA128-SHA256",
+      "DHE-DSS-CAMELLIA256-SHA",
+      "DHE-DSS-CAMELLIA256-SHA256",
+      "DHE-RSA-AES128-SHA",
+      "DHE-RSA-AES128-SHA256",
+      "DHE-RSA-AES256-SHA",
+      "DHE-RSA-AES256-SHA256",
+      "DHE-RSA-CAMELLIA128-SHA",
+      "DHE-RSA-CAMELLIA128-SHA256",
+      "DHE-RSA-CAMELLIA256-SHA",
+      "DHE-RSA-CAMELLIA256-SHA256",
+      "ECDHE-ECDSA-AES128-SHA",
+      "ECDHE-ECDSA-AES128-SHA256",
+      "ECDHE-ECDSA-AES256-SHA",
+      "ECDHE-ECDSA-AES256-SHA384",
+      "ECDHE-ECDSA-CAMELLIA128-SHA256",
+      "ECDHE-ECDSA-CAMELLIA256-SHA384",
+      "ECDHE-RSA-AES128-SHA",
+      "ECDHE-RSA-AES128-SHA256",
+      "ECDHE-RSA-AES256-SHA",
+      "ECDHE-RSA-AES256-SHA384",
+      "ECDHE-RSA-CAMELLIA128-SHA256",
+      "ECDHE-RSA-CAMELLIA256-SHA384"
+    ],
+    "overlay_includes_rsa_kx": [
+      "AES256-GCM-SHA384",
+      "AES256-CCM8",
+      "AES256-CCM",
+      "ARIA256-GCM-SHA384",
+      "AES128-GCM-SHA256",
+      "AES128-CCM8",
+      "AES128-CCM",
+      "ARIA128-GCM-SHA256"
+    ],
+    "overlay_includes_cbc": [],
+    "rows": 74
+  },
+  "cipher_matrix_csv": "cipher_matrix.csv",
+  "variants": [
+    {
+      "id": "V1",
+      "name": "overlay-as-written",
+      "description": "Server and client configured exactly as the code writes them: TLS minimum 1.2, no maximum (TLS 1.3 allowed), cipher list 'TLSv1.2:!CBC:!DSS:!PSK:!eNULL:!aNULL', RSA-2048 self-signed certificate, no certificate verification.",
+      "attempts": [
+        {
+          "client": {
+            "outcome": "success",
+            "version": "TLSv1.3",
+            "cipher": "TLS_AES_256_GCM_SHA384"
+          },
+          "server": {
+            "version": "TLSv1.3",
+            "cipher": "TLS_AES_256_GCM_SHA384"
+          }
+        },
+        {
+          "client": {
+            "outcome": "success",
+            "version": "TLSv1.3",
+            "cipher": "TLS_AES_256_GCM_SHA384"
+          },
+          "server": {
+            "version": "TLSv1.3",
+            "cipher": "TLS_AES_256_GCM_SHA384"
+          }
+        },
+        {
+          "client": {
+            "outcome": "success",
+            "version": "TLSv1.3",
+            "cipher": "TLS_AES_256_GCM_SHA384"
+          },
+          "server": {
+            "version": "TLSv1.3",
+            "cipher": "TLS_AES_256_GCM_SHA384"
+          }
+        }
+      ],
+      "summary": {
+        "attempts": 3,
+        "successes": 3,
+        "failures": 0,
+        "negotiated_version": "TLSv1.3",
+        "negotiated_cipher": "TLS_AES_256_GCM_SHA384",
+        "all_attempts_agree": true
+      }
+    },
+    {
+      "id": "V2",
+      "name": "tls13-only",
+      "description": "Both ends restricted to TLS 1.3 with the default TLS 1.3 ciphersuites (the code never configures TLS 1.3 ciphersuites, so this is the default set).",
+      "attempts": [
+        {
+          "client": {
+            "outcome": "success",
+            "version": "TLSv1.3",
+            "cipher": "TLS_AES_256_GCM_SHA384"
+          },
+          "server": {
+            "version": "TLSv1.3",
+            "cipher": "TLS_AES_256_GCM_SHA384"
+          }
+        },
+        {
+          "client": {
+            "outcome": "success",
+            "version": "TLSv1.3",
+            "cipher": "TLS_AES_256_GCM_SHA384"
+          },
+          "server": {
+            "version": "TLSv1.3",
+            "cipher": "TLS_AES_256_GCM_SHA384"
+          }
+        },
+        {
+          "client": {
+            "outcome": "success",
+            "version": "TLSv1.3",
+            "cipher": "TLS_AES_256_GCM_SHA384"
+          },
+          "server": {
+            "version": "TLSv1.3",
+            "cipher": "TLS_AES_256_GCM_SHA384"
+          }
+        }
+      ],
+      "summary": {
+        "attempts": 3,
+        "successes": 3,
+        "failures": 0,
+        "negotiated_version": "TLSv1.3",
+        "negotiated_cipher": "TLS_AES_256_GCM_SHA384",
+        "all_attempts_agree": true
+      }
+    },
+    {
+      "id": "V3",
+      "name": "relaxed-tls12",
+      "description": "TLS 1.2 only, cipher list relaxed to 'ALL' on both ends: shows what the overlay restriction actually excludes, by contrast with V4.",
+      "attempts": [
+        {
+          "client": {
+            "outcome": "success",
+            "version": "TLSv1.2",
+            "cipher": "ECDHE-RSA-AES256-GCM-SHA384"
+          },
+          "server": {
+            "version": "TLSv1.2",
+            "cipher": "ECDHE-RSA-AES256-GCM-SHA384"
+          }
+        },
+        {
+          "client": {
+            "outcome": "success",
+            "version": "TLSv1.2",
+            "cipher": "ECDHE-RSA-AES256-GCM-SHA384"
+          },
+          "server": {
+            "version": "TLSv1.2",
+            "cipher": "ECDHE-RSA-AES256-GCM-SHA384"
+          }
+        },
+        {
+          "client": {
+            "outcome": "success",
+            "version": "TLSv1.2",
+            "cipher": "ECDHE-RSA-AES256-GCM-SHA384"
+          },
+          "server": {
+            "version": "TLSv1.2",
+            "cipher": "ECDHE-RSA-AES256-GCM-SHA384"
+          }
+        }
+      ],
+      "summary": {
+        "attempts": 3,
+        "successes": 3,
+        "failures": 0,
+        "negotiated_version": "TLSv1.2",
+        "negotiated_cipher": "ECDHE-RSA-AES256-GCM-SHA384",
+        "all_attempts_agree": true
+      }
+    },
+    {
+      "id": "V4",
+      "name": "overlay-tls12-only",
+      "description": "Overlay cipher list with TLS 1.2 forced on both ends: shows which TLS 1.2 suite the overlay configuration negotiates when TLS 1.3 is out of the picture.",
+      "attempts": [
+        {
+          "client": {
+            "outcome": "success",
+            "version": "TLSv1.2",
+            "cipher": "ECDHE-RSA-AES256-GCM-SHA384"
+          },
+          "server": {
+            "version": "TLSv1.2",
+            "cipher": "ECDHE-RSA-AES256-GCM-SHA384"
+          }
+        },
+        {
+          "client": {
+            "outcome": "success",
+            "version": "TLSv1.2",
+            "cipher": "ECDHE-RSA-AES256-GCM-SHA384"
+          },
+          "server": {
+            "version": "TLSv1.2",
+            "cipher": "ECDHE-RSA-AES256-GCM-SHA384"
+          }
+        },
+        {
+          "client": {
+            "outcome": "success",
+            "version": "TLSv1.2",
+            "cipher": "ECDHE-RSA-AES256-GCM-SHA384"
+          },
+          "server": {
+            "version": "TLSv1.2",
+            "cipher": "ECDHE-RSA-AES256-GCM-SHA384"
+          }
+        }
+      ],
+      "summary": {
+        "attempts": 3,
+        "successes": 3,
+        "failures": 0,
+        "negotiated_version": "TLSv1.2",
+        "negotiated_cipher": "ECDHE-RSA-AES256-GCM-SHA384",
+        "all_attempts_agree": true
+      }
+    },
+    {
+      "id": "V5",
+      "name": "rsa-key-transport-tls12",
+      "description": "Overlay server (TLS 1.2, overlay cipher list); client offers ONLY the RSA key-transport suite AES256-GCM-SHA384 (TLS_RSA_WITH_AES_256_GCM_SHA384). Tests whether the overlay cipher list permits non-forward-secret RSA key transport.",
+      "attempts": [
+        {
+          "client": {
+            "outcome": "success",
+            "version": "TLSv1.2",
+            "cipher": "AES256-GCM-SHA384"
+          },
+          "server": {
+            "version": "TLSv1.2",
+            "cipher": "AES256-GCM-SHA384"
+          }
+        },
+        {
+          "client": {
+            "outcome": "success",
+            "version": "TLSv1.2",
+            "cipher": "AES256-GCM-SHA384"
+          },
+          "server": {
+            "version": "TLSv1.2",
+            "cipher": "AES256-GCM-SHA384"
+          }
+        },
+        {
+          "client": {
+            "outcome": "success",
+            "version": "TLSv1.2",
+            "cipher": "AES256-GCM-SHA384"
+          },
+          "server": {
+            "version": "TLSv1.2",
+            "cipher": "AES256-GCM-SHA384"
+          }
+        }
+      ],
+      "summary": {
+        "attempts": 3,
+        "successes": 3,
+        "failures": 0,
+        "negotiated_version": "TLSv1.2",
+        "negotiated_cipher": "AES256-GCM-SHA384",
+        "all_attempts_agree": true
+      }
+    },
+    {
+      "id": "V6",
+      "name": "cbc-blocked-by-overlay",
+      "description": "Overlay server (TLS 1.2, overlay cipher list); client offers ONLY the CBC suite ECDHE-RSA-AES256-SHA384. Expected failure: the !CBC exclusion leaves no shared cipher.",
+      "attempts": [
+        {
+          "client": {
+            "outcome": "failure",
+            "error": "SSLError",
+            "message": "[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1000)"
+          },
+          "server": {
+            "error": "SSLError",
+            "message": "[SSL: NO_SHARED_CIPHER] no shared cipher (_ssl.c:1000)"
+          }
+        },
+        {
+          "client": {
+            "outcome": "failure",
+            "error": "SSLError",
+            "message": "[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1000)"
+          },
+          "server": {
+            "error": "SSLError",
+            "message": "[SSL: NO_SHARED_CIPHER] no shared cipher (_ssl.c:1000)"
+          }
+        },
+        {
+          "client": {
+            "outcome": "failure",
+            "error": "SSLError",
+            "message": "[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1000)"
+          },
+          "server": {
+            "error": "SSLError",
+            "message": "[SSL: NO_SHARED_CIPHER] no shared cipher (_ssl.c:1000)"
+          }
+        }
+      ],
+      "summary": {
+        "attempts": 3,
+        "successes": 0,
+        "failures": 3,
+        "negotiated_version": null,
+        "negotiated_cipher": null,
+        "all_attempts_agree": true
+      }
+    },
+    {
+      "id": "V7",
+      "name": "cbc-allowed-when-relaxed",
+      "description": "Control for V6: same CBC-only client against a server with the cipher list relaxed to 'ALL'. Expected success with the CBC suite.",
+      "attempts": [
+        {
+          "client": {
+            "outcome": "success",
+            "version": "TLSv1.2",
+            "cipher": "ECDHE-RSA-AES256-SHA384"
+          },
+          "server": {
+            "version": "TLSv1.2",
+            "cipher": "ECDHE-RSA-AES256-SHA384"
+          }
+        },
+        {
+          "client": {
+            "outcome": "success",
+            "version": "TLSv1.2",
+            "cipher": "ECDHE-RSA-AES256-SHA384"
+          },
+          "server": {
+            "version": "TLSv1.2",
+            "cipher": "ECDHE-RSA-AES256-SHA384"
+          }
+        },
+        {
+          "client": {
+            "outcome": "success",
+            "version": "TLSv1.2",
+            "cipher": "ECDHE-RSA-AES256-SHA384"
+          },
+          "server": {
+            "version": "TLSv1.2",
+            "cipher": "ECDHE-RSA-AES256-SHA384"
+          }
+        }
+      ],
+      "summary": {
+        "attempts": 3,
+        "successes": 3,
+        "failures": 0,
+        "negotiated_version": "TLSv1.2",
+        "negotiated_cipher": "ECDHE-RSA-AES256-SHA384",
+        "all_attempts_agree": true
+      }
+    },
+    {
+      "id": "V8",
+      "name": "tls11-rejected",
+      "description": "Overlay server; client restricted to TLS 1.1 (security level lowered on the client only, so the client can even offer it). Expected failure: the server disables TLS 1.0/1.1.",
+      "attempts": [
+        {
+          "client": {
+            "outcome": "failure",
+            "error": "SSLError",
+            "message": "[SSL: TLSV1_ALERT_PROTOCOL_VERSION] tlsv1 alert protocol version (_ssl.c:1000)"
+          },
+          "server": {
+            "error": "SSLError",
+            "message": "[SSL: UNSUPPORTED_PROTOCOL] unsupported protocol (_ssl.c:1000)"
+          }
+        },
+        {
+          "client": {
+            "outcome": "failure",
+            "error": "SSLError",
+            "message": "[SSL: TLSV1_ALERT_PROTOCOL_VERSION] tlsv1 alert protocol version (_ssl.c:1000)"
+          },
+          "server": {
+            "error": "SSLError",
+            "message": "[SSL: UNSUPPORTED_PROTOCOL] unsupported protocol (_ssl.c:1000)"
+          }
+        },
+        {
+          "client": {
+            "outcome": "failure",
+            "error": "SSLError",
+            "message": "[SSL: TLSV1_ALERT_PROTOCOL_VERSION] tlsv1 alert protocol version (_ssl.c:1000)"
+          },
+          "server": {
+            "error": "SSLError",
+            "message": "[SSL: UNSUPPORTED_PROTOCOL] unsupported protocol (_ssl.c:1000)"
+          }
+        }
+      ],
+      "summary": {
+        "attempts": 3,
+        "successes": 0,
+        "failures": 3,
+        "negotiated_version": null,
+        "negotiated_cipher": null,
+        "all_attempts_agree": true
+      }
+    },
+    {
+      "id": "V9",
+      "name": "tls12-dhe-embedded-params",
+      "description": "TLS 1.2, overlay cipher list, client offers ONLY DHE-RSA-AES256-GCM-SHA384; server is openssl s_server loaded with the embedded 2048-bit DH parameters extracted from make_SSLContext.cpp. Tests the code's DHE path end to end.",
+      "attempts": [
+        {
+          "client": {
+            "outcome": "success",
+            "version": "TLSv1.2",
+            "cipher": "DHE-RSA-AES256-GCM-SHA384"
+          },
+          "server": {
+            "note": "openssl s_server; see dh_params.txt for the embedded DH parameters"
+          }
+        }
+      ],
+      "summary": {
+        "attempts": 1,
+        "successes": 1,
+        "failures": 0,
+        "negotiated_version": "TLSv1.2",
+        "negotiated_cipher": "DHE-RSA-AES256-GCM-SHA384",
+        "all_attempts_agree": true
+      }
+    },
+    {
+      "id": "V10",
+      "name": "tls13-ciphersuites-unrestricted",
+      "description": "TLS 1.3 only, server cipher list set to the overlay string (which per OpenSSL documentation does not affect TLS 1.3 ciphersuites): shows TLS 1.3 still negotiates its default suites, including ChaCha20-Poly1305, which the '!CBC' wording never touches.",
+      "attempts": [
+        {
+          "client": {
+            "outcome": "success",
+            "version": "TLSv1.3",
+            "cipher": "TLS_AES_256_GCM_SHA384"
+          },
+          "server": {
+            "version": "TLSv1.3",
+            "cipher": "TLS_AES_256_GCM_SHA384"
+          }
+        },
+        {
+          "client": {
+            "outcome": "success",
+            "version": "TLSv1.3",
+            "cipher": "TLS_AES_256_GCM_SHA384"
+          },
+          "server": {
+            "version": "TLSv1.3",
+            "cipher": "TLS_AES_256_GCM_SHA384"
+          }
+        },
+        {
+          "client": {
+            "outcome": "success",
+            "version": "TLSv1.3",
+            "cipher": "TLS_AES_256_GCM_SHA384"
+          },
+          "server": {
+            "version": "TLSv1.3",
+            "cipher": "TLS_AES_256_GCM_SHA384"
+          }
+        }
+      ],
+      "summary": {
+        "attempts": 3,
+        "successes": 3,
+        "failures": 0,
+        "negotiated_version": "TLSv1.3",
+        "negotiated_cipher": "TLS_AES_256_GCM_SHA384",
+        "all_attempts_agree": true
+      }
+    }
+  ],
+  "scope": "Loopback-only local rig. No live peer, validator or network endpoint was contacted. The harness measures a TLS client/server pair configured like the overlay; it is NOT a measurement of live peer connections."
+}

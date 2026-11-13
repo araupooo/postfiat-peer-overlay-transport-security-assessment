@@ -1,0 +1,24 @@
+Handshake harness summary (harness.py 1.0.0, seed 20261113)
+Pinned commit: 0085a1ff885d6a446369cf73a4430f75af22be55
+Local OpenSSL (library): OpenSSL 3.0.13 30 Jan 2024
+Local OpenSSL (CLI): OpenSSL 3.0.13 30 Jan 2024 (Library: OpenSSL 3.0.13 30 Jan 2024)
+Overlay cipher list as written: TLSv1.2:!CBC:!DSS:!PSK:!eNULL:!aNULL
+TLS 1.2 suites in overlay list: 31 (local OpenSSL)
+TLS 1.2 suites in OpenSSL DEFAULT: 27
+TLS 1.2 suites in ALL: 71
+TLS 1.3 suites (defaults, never configured by the code): 3
+RSA key-transport suites still in overlay list: AES256-GCM-SHA384, AES256-CCM8, AES256-CCM, ARIA256-GCM-SHA384, AES128-GCM-SHA256, AES128-CCM8, AES128-CCM, ARIA128-GCM-SHA256
+CBC suites still in overlay list: none
+Test certificate: RSA 2048-bit, sha256WithRSAEncryption, fingerprint 2f6c197f20e2d048df32d0d7c4862ff42f741ad9726921ac24701c8f2fa89389
+Embedded DH parameters: 2048-bit, check ok: True
+
+V1 overlay-as-written: 3/3 succeeded; version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384
+V2 tls13-only: 3/3 succeeded; version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384
+V3 relaxed-tls12: 3/3 succeeded; version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384
+V4 overlay-tls12-only: 3/3 succeeded; version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384
+V5 rsa-key-transport-tls12: 3/3 succeeded; version=TLSv1.2 cipher=AES256-GCM-SHA384
+V6 cbc-blocked-by-overlay: 0/3 succeeded; version=None cipher=None
+V7 cbc-allowed-when-relaxed: 3/3 succeeded; version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384
+V8 tls11-rejected: 0/3 succeeded; version=None cipher=None
+V9 tls12-dhe-embedded-params: 1/1 succeeded; version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384
+V10 tls13-ciphersuites-unrestricted: 3/3 succeeded; version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384

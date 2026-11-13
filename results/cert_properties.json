@@ -1,0 +1,19 @@
+{
+  "sha256_fingerprint": "2f6c197f20e2d048df32d0d7c4862ff42f741ad9726921ac24701c8f2fa89389",
+  "serial": "20:26:11:13:00:00:00:00:00:00:00:00:00:00:00:42",
+  "signature_algorithm": "sha256WithRSAEncryption",
+  "issuer": "",
+  "subject": "",
+  "not_before": "Nov 12 00:00:00 2026 GMT",
+  "not_after": "Nov 12 00:00:00 2028 GMT",
+  "public_key_algorithm": "rsaEncryption",
+  "public_key_bits": "2048",
+  "extensions_present": [
+    "Basic Constraints",
+    "Extended Key Usage",
+    "Key Usage",
+    "Subject Key Identifier",
+    "extensions"
+  ],
+  "openssl_x509_text": "Certificate:\n    Data:\n        Version: 3 (0x2)\n        Serial Number:\n            20:26:11:13:00:00:00:00:00:00:00:00:00:00:00:42\n        Signature Algorithm: sha256WithRSAEncryption\n        Issuer: \n        Validity\n            Not Before: Nov 12 00:00:00 2026 GMT\n            Not After : Nov 12 00:00:00 2028 GMT\n        Subject: \n        Subject Public Key Info:\n            Public Key Algorithm: rsaEncryption\n                Public-Key: (2048 bit)\n                Modulus:\n                    00:85:d5:ac:53:75:2b:72:cb:cf:03:b0:71:69:45:\n                    e8:a3:00:18:c5:dd:d5:76:21:8f:15:45:3d:cf:27:\n                    14:93:bb:77:58:33:19:8d:b9:3a:46:60:53:6a:d7:\n                    0b:6e:7b:77:f5:04:3d:ee:69:fe:05:d3:f5:28:c2:\n                    8a:c0:ac:f7:0e:f3:bd:a5:37:9d:3e:9c:77:a5:02:\n                    1a:0e:f4:5a:61:e0:fd:50:fd:99:02:c8:0e:ff:1e:\n                    49:a3:8a:99:3c:68:c0:6d:4f:22:da:c9:5e:a3:59:\n                    fb:45:41:1c:f8:8a:c1:4e:3a:ee:5b:dd:4c:79:e4:\n                    98:4e:b2:95:ef:f6:a1:f9:67:ff:f2:64:a0:c6:fd:\n                    8b:d5:bf:1b:e4:b9:c9:b4:da:77:75:9c:1c:b3:66:\n                    d1:ce:26:df:34:ad:0f:db:c9:a6:a6:21:ae:ff:24:\n                    5e:42:18:45:a5:a4:6d:fd:ac:62:ec:ea:4c:5b:c4:\n                    52:4d:96:c1:b4:bd:e5:c6:a0:fa:3e:48:53:26:d6:\n                    07:38:3f:7f:a4:e3:c5:c7:cb:cc:8a:61:f3:59:fc:\n                    98:fc:f4:b7:fa:92:fa:4b:c8:fc:6d:36:50:f4:05:\n                    d3:a0:88:9d:6d:64:80:50:a1:eb:5f:1f:29:e0:e8:\n                    c2:27:d2:b2:19:08:fa:95:9d:9c:53:ad:d8:d2:6f:\n                    e2:07\n                Exponent: 65537 (0x10001)\n        X509v3 extensions:\n            X509v3 Basic Constraints: critical\n                CA:FALSE\n            X509v3 Extended Key Usage: critical\n                TLS Web Server Authentication, TLS Web Client Authentication\n            X509v3 Key Usage: critical\n                Digital Signature\n            X509v3 Subject Key Identifier: \n                57:DB:BA:4F:6E:B0:39:06:A2:18:41:CE:BD:45:30:02:AD:ED:90:6C\n    Signature Algorithm: sha256WithRSAEncryption\n    Signature Value:\n        10:a4:b3:07:89:f4:52:2f:32:02:e5:3f:56:f0:35:8a:47:da:\n        58:01:5b:6d:9f:4e:19:9a:b0:67:c8:cf:85:1e:36:8e:c0:5c:\n        9a:4e:67:6c:9e:38:85:05:fd:bf:03:e2:f7:25:33:89:3c:a5:\n        14:6d:50:d1:38:17:0b:d5:08:c3:b3:77:ae:29:5b:5a:ec:ab:\n        85:cb:92:45:b4:a7:4a:c8:64:75:a3:4d:f0:3c:58:54:59:4a:\n        2a:96:5a:bb:64:79:d8:ed:c7:c2:d1:a0:02:48:d3:02:c8:84:\n        11:08:7e:62:94:a9:a4:b4:d7:80:41:28:12:6b:55:21:a9:55:\n        40:75:72:34:8b:b6:82:83:e0:41:3e:32:0e:4c:da:ad:e1:d1:\n        b1:03:2a:26:5f:8f:ac:d9:3a:32:22:d1:59:c1:a8:68:35:5d:\n        50:e6:01:49:01:09:1f:f0:7c:eb:08:8d:cc:90:48:62:b7:86:\n        64:7d:8b:4e:a6:e2:1e:a5:37:c1:00:6b:d4:bb:a3:55:b1:e9:\n        70:74:1f:d8:42:65:f0:31:6d:dc:5e:5e:34:55:75:01:68:d5:\n        83:44:59:67:71:45:8d:fc:aa:f6:07:76:f1:d5:b0:af:7e:bb:\n        48:8b:c2:c6:6f:bb:af:c2:01:8a:09:e0:45:47:4f:be:cb:54:\n        2e:9c:20:e6\nsha256 Fingerprint=2F:6C:19:7F:20:E2:D0:48:DF:32:D0:D7:C4:86:2F:F4:2F:74:1A:D9:72:69:21:AC:24:70:1C:8F:2F:A8:93:89\n"
+}
